@@ -11,3 +11,8 @@ Ingredient.destroy_all if Rails.env.development?
 Ingredient.create(name: "lemon")
 Ingredient.create(name: "ice")
 Ingredient.create(name: "mint leaves")
+
+Cocktail.destroy_all if Rails.env.development?
+
+Cocktail.create(name: "Margharita")
+Cocktail.create(name: "Gin Tonic")
