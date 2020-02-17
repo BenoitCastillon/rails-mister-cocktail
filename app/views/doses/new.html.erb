@@ -4,12 +4,15 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h1>Add a new dose</h1>
-      <%= simple_form_for @dose do |f| %>
-        <%= f.association :cocktail %>
-        <%= f.association :ingredient %>
-        <%= f.submit class: 'btn btn-primary' %>
+      <h1>Add a new dose à <%= @cocktail.name %></h1>
+
+      <%= simple_form_for [@cocktail, @dose] do |f| %>
+      <%= f.input :description %>
+      <%= f.association :ingredient, input_html: { class: "beautiful-dropdown" }, include_hidden: false %>
+      <%= f.submit "Add Dose", class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>
 </div>
+
+

@@ -1,24 +1,33 @@
 class DosesController < ApplicationController
 
   def new
-    Cocktail.find(params[:cocktail_id])
-    @dose = dose.ne
+    @cocktail = Cocktail.find(params[:cocktail_id])
+    @dose = Dose.new
   end
 
   def create
-    @dose = Restaurant.find(params[:dose_id])
-    @review = Review.new(review_params)
-    @review.dose = @dose
-    if @review.save
-      redirect_to dose_path(@dose)
-    else
-      render "doses/show"
-    end
+    @cocktail = Cocktail.find(params[:cocktail_id])
+    @ingredient = Ingredient.find(params[:dose][:ingredient_id])
+    @dose = Dose.new(dose_params)
+
+    @dose.ingredient = @ingredient
+    @dose.cocktail = @cocktail
+    @dose.save
+
+    redirect_to cocktail_path(@cocktail)
+  end
+
+  def destroy
+    @dose = Dose.find(params[:id])
+    @dose.destroy
+    redirect_to cocktail_path(@dose.cocktail)
   end
 
   private
 
-  def review_params
-    params.require(:review).permit(:rating, :content)
+  def dose_params
+    params.require(:dose).permit(:description)
   end
+
 end
+
